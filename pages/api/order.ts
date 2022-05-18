@@ -45,7 +45,8 @@ export default methods({
             success: "https://google.com",
           },
           external_reference: order.id,
-          notification_url: "http://myapi.com/webhooks/mercadopago",
+          notification_url:
+            "https://e-commerce-back-omega.vercel.app/api/ipn/mercadopago",
         });
         res.send({ url: pref.init_point });
       } else {
