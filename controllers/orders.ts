@@ -27,14 +27,13 @@ export const closeOrder = async (topic, id): Promise<any> => {
   const order = await getMerchantOrder(id);
   if (order.order_status == "paid") {
     const orderId = order.external_reference;
-    const orderInstance = new Order(id);
-    const dataOrder = await orderInstance.get();
     await Order.close(order, orderId);
-    const user = new User(dataOrder.userId);
+    const orderInstance = new Order(id);
+    await orderInstance.pull();
+    const user = new User(orderInstance.data.userId);
     await user.pull();
-    const product = getProductById(dataOrder.productId);
+    const product = await getProductById(orderInstance.data.productId);
     await sendEmailToUser(user.data.email, product);
-    // sendEmailInterno("Alguien compro algo");
     return { closed: true };
   }
 };
