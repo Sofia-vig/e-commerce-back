@@ -10,6 +10,7 @@ export default methods({
       await user.pull();
       user.updateAddress(req.body.address);
       await user.push();
+      res.send({ updateAddress: true });
     }
   ),
 });

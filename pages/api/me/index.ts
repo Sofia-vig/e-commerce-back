@@ -15,6 +15,7 @@ export default methods({
     async (req: NextApiRequest, res: NextApiResponse, token) => {
       const user = new User(token.userId);
       await user.update(req.body);
+      res.send({ update: true });
     }
   ),
 });

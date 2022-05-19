@@ -3,21 +3,16 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { Order } from "models/order";
 import { authMiddleware } from "lib/middlewares";
 import { createPreference } from "lib/mercadopago";
-
-const products = {
-  "1234": {
-    title: "Mate",
-    price: 100,
-    description: "AAAA",
-  },
-};
+import { Product } from "models/product";
 
 export default methods({
   post: authMiddleware(
     async (req: NextApiRequest, res: NextApiResponse, token) => {
       const { productId } = req.query as any;
-      const product = products[productId];
-      if (product) {
+      const product = new Product(productId);
+      await product.pull();
+      const productData = product.get();
+      if (productData) {
         const order = await Order.createNewOrder({
           aditionalInfo: req.body,
           productId,
@@ -28,13 +23,13 @@ export default methods({
         const pref = await createPreference({
           items: [
             {
-              title: product.title,
-              description: product.description,
+              title: productData.title,
+              description: productData.description,
               picture_url: "http://www.myapp.com/myimage.jpg",
               category_id: "car_electronics",
               quantity: 1,
               currency_id: "ARS",
-              unit_price: product.price,
+              unit_price: productData.price,
             },
           ],
           back_urls: {

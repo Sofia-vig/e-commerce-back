@@ -26,4 +26,8 @@ export class Product {
       hitsPerPage: limit,
     });
   }
+  static async getAll() {
+    const snap = await collection.get();
+    return snap.docs.map((doc) => doc.data());
+  }
 }
