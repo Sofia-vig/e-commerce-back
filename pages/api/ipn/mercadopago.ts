@@ -5,7 +5,8 @@ import { closeOrder } from "controllers/orders";
 export default methods({
   post: async (req: NextApiRequest, res: NextApiResponse) => {
     const { id, topic } = req.query;
-    topic == "merchant_order" && (await closeOrder(id));
-    res.status(200).send({ ok: true });
+    const done = await closeOrder(topic, id);
+    done && res.status(200).send({ ok: true });
+    !done && res.status(200).send("order not close");
   },
 });

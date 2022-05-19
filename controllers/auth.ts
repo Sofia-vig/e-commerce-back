@@ -1,5 +1,6 @@
 import { User } from "models/user";
 import { Auth } from "models/auth";
+import { generate } from "lib/jwt";
 import gen from "random-seed";
 import addMinutes from "date-fns/addMinutes";
 var seed = "breakingBad";
@@ -29,4 +30,12 @@ export const sendCode = async (email: string) => {
   await auth.push();
   console.log("email enviado a " + email + " con codigo: " + code);
   return true;
+};
+
+export const getToken = async (email, code) => {
+  const auth = await Auth.findByEmailAndCode(email, code);
+  if (!auth) return "email or code incorrect";
+  const expired = auth.isCodeExpired();
+  if (expired) return "code expired";
+  return { token: generate({ userId: auth.data.userId }) };
 };
