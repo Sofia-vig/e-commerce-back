@@ -1,6 +1,6 @@
 import methods from "micro-method-router";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { syncAirtableWithAlgolia } from "controllers/products";
+import { syncAirtableWithAlgolia } from "models/product";
 
 export default methods({
   get: async (req: NextApiRequest, res: NextApiResponse) => {

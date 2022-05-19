@@ -44,7 +44,7 @@ export const sendCode = async (email: string) => {
 /**
  * @param email string
  * @param code number
- * @description If code is not expired, and the email and code are the same return a token
+ * @description If code is not expired, and the email and code are the same, return a token
  * @returns token:string
  */
 export const getToken = async (email: string, code: number) => {
