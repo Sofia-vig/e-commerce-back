@@ -28,6 +28,7 @@ export default methods({
           productId,
           userId: token.userId,
           status: "pending",
+          createdAt: new Date(),
         });
         const pref = await createPreference({
           items: [

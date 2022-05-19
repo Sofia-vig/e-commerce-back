@@ -16,6 +16,8 @@ export default methods({
         const newOrder = new Order(orderId);
         await newOrder.pull();
         newOrder.data.status = "closed";
+        newOrder.data.externalOrder = order;
+        //editedAt
         await newOrder.push();
         // sendEmail("Tu pago fue confirmado");
         // sendEmailInterno("Alguien compro algo");
