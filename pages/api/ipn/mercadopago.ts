@@ -6,7 +6,7 @@ export default methods({
   post: async (req: NextApiRequest, res: NextApiResponse) => {
     const { id, topic } = req.query;
     const done = await closeOrder(topic, id);
-    done && res.status(200).send({ ok: true });
-    !done && res.status(200).send("order not close");
+    done && res.status(200).send({ closed: true });
+    !done && res.status(200).send("order not closed");
   },
 });
