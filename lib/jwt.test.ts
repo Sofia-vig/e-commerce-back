@@ -1,7 +1,7 @@
 import test from "ava";
 import { generate, decode } from "./jwt";
 
-test("jwt encode/decode", (t) => {
+test("encode/decode", (t) => {
   const payload = { sofa: "vigna" };
   const token = generate(payload);
   const decoded = decode(token);
