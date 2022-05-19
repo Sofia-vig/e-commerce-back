@@ -1,6 +1,8 @@
 import { Order } from "models/order";
 import { getMerchantOrder, createPreference } from "lib/mercadopago";
 import { getProductById } from "models/product";
+import { sendEmailToUser } from "lib/email";
+import { User } from "models/user";
 
 /**
  * @param userId string
@@ -25,8 +27,13 @@ export const closeOrder = async (topic, id): Promise<any> => {
   const order = await getMerchantOrder(id);
   if (order.order_status == "paid") {
     const orderId = order.external_reference;
+    const orderInstance = new Order(id);
+    const dataOrder = await orderInstance.get();
     await Order.close(order, orderId);
-    // sendEmail("Tu pago fue confirmado");
+    const user = new User(dataOrder.userId);
+    await user.pull();
+    const product = getProductById(dataOrder.productId);
+    await sendEmailToUser(user.data.email, product);
     // sendEmailInterno("Alguien compro algo");
     return { closed: true };
   }
@@ -40,9 +47,9 @@ export const closeOrder = async (topic, id): Promise<any> => {
  * @returns Promise<any>
  */
 export const createOrderAndPreferences = async (
-  productId,
+  productId: string,
   orderInfo,
-  userId
+  userId: string
 ): Promise<any> => {
   const product = await getProductById(productId);
   if (!product) return "El producto no existe";

@@ -37,6 +37,7 @@
     "micro-method-router": "^0.1.0",
     "next": "^12.1.6",
     "parse-bearer-token": "^1.0.1",
+    "qs": "^6.10.3",
     "random-seed": "^0.3.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0"

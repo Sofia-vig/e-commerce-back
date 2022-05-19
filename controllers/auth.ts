@@ -1,10 +1,7 @@
 import { User } from "models/user";
 import { Auth } from "models/auth";
 import { generate } from "lib/jwt";
-import gen from "random-seed";
-import addMinutes from "date-fns/addMinutes";
-var seed = "breakingBad";
-var random = gen.create(seed);
+import { generateCodeWithExpires } from "lib/utils";
 
 /**
  * @param email string
@@ -35,11 +32,9 @@ export const findOrCreateAuth = async (email: string): Promise<Auth> => {
  */
 export const sendCode = async (email: string) => {
   const auth = await findOrCreateAuth(email);
-  const code = random.intBetween(10000, 99999);
-  const now = new Date();
-  const fiveMinutesFromNow = addMinutes(now, 5);
+  const { code, expires } = generateCodeWithExpires();
   auth.data.code = code;
-  auth.data.expires = fiveMinutesFromNow;
+  auth.data.expires = expires;
   await auth.push();
   console.log("email enviado a " + email + " con codigo: " + code);
   return true;
