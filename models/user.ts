@@ -22,4 +22,10 @@ export class User {
     newUser.data = data;
     return newUser;
   }
+  async update(data) {
+    return collection.doc(this.id).update(data);
+  }
+  updateAddress(address) {
+    this.data.address = address;
+  }
 }

@@ -14,7 +14,8 @@ export default methods({
   ),
   patch: authMiddleware(
     async (req: NextApiRequest, res: NextApiResponse, token) => {
-      // Permite modificar algunos datos del usuario al que pertenezca el token.
+      const user = new User(token.userId);
+      await user.update(req.body);
     }
   ),
 });
