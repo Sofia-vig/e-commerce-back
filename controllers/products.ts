@@ -1,7 +1,6 @@
 import { base } from "lib/airtable";
 import { productsIndex } from "lib/algolia";
 
-//TODO usar cronjob
 /**
  * @description Sync products from Airtable with Algolia every 30 minutes
  */

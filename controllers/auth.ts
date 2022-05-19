@@ -6,7 +6,7 @@ import { sendCodeEmail } from "lib/email";
 
 /**
  * @param email string
- * @description If Auth exist return auth if not create a new user and  new auth
+ * @description If Auth exist return auth, if not create a new user and  new auth
  * @returns Promise<Auth>
  */
 export const findOrCreateAuth = async (email: string): Promise<Auth> => {
