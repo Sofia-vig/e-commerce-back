@@ -30,6 +30,9 @@ export const closeOrder = async (topic, id): Promise<any> => {
     await Order.close(order, orderId);
     const orderInstance = new Order(id);
     await orderInstance.pull();
+    console.log({ orderInstance });
+    console.log(orderInstance.data);
+
     const user = new User(orderInstance.data.userId);
     await user.pull();
     const product = await getProductById(orderInstance.data.productId);
