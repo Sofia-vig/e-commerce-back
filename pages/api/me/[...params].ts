@@ -16,7 +16,7 @@ const patchByAction = {
 const getByAction = {
   orders: authMiddleware(
     async (req: NextApiRequest, res: NextApiResponse, token) => {
-      const myOrders = await Order.getMyOrders(token.userId);
+      const myOrders = await Order.getOrdersByUserId(token.userId);
       res.send({ myOrders });
     }
   ),

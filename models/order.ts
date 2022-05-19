@@ -29,7 +29,7 @@ export class Order {
       editedAt: new Date(),
     });
   }
-  static async getMyOrders(userId: string) {
+  static async getOrdersByUserId(userId: string) {
     const snap = await collection.where("userId", "==", userId).get();
     return snap.docs.map((d) => {
       const { status, aditionalInfo } = d.data();
