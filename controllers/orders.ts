@@ -28,7 +28,7 @@ export const closeOrder = async (topic, id): Promise<any> => {
   if (order.order_status == "paid") {
     const orderId = order.external_reference;
     await Order.close(order, orderId);
-    const orderInstance = new Order(id);
+    const orderInstance = new Order(orderId);
     await orderInstance.pull();
     console.log({ orderInstance });
     console.log(orderInstance.data);
