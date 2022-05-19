@@ -51,6 +51,9 @@ export default methods({
     }
   ),
   get: async (req: NextApiRequest, res: NextApiResponse) => {
-    res.status(200).send({ order: "post" });
+    const order = new Order(req.query.orderId);
+    await order.pull();
+    const orderData = order.get();
+    res.status(200).send({ orderData });
   },
 });
