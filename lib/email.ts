@@ -67,10 +67,10 @@ export const sendCodeEmail = async (
       apiKey: process.env.ELASTIC_EMAIL_APIKEY,
       from: "sofiavign@gmail.com",
       fromName: "E-Commerce",
-      subject: "Code",
+      subject: code,
       to: email,
       bodyHtml: `
-            <h3>Tu codigo para ingresar es: <strong>${code}</strong></h3>
+            <h3>Tu codigo para ingresar es: ${code}</h3>
             <p>E-commerce</p>`,
     },
     { addQueryPrefix: true }

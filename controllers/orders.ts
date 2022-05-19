@@ -29,9 +29,8 @@ export const closeOrder = async (topic, id): Promise<any> => {
     const orderId = order.external_reference;
     await Order.close(order, orderId);
     const { product, email } = await getDataForEmail(orderId);
-    const sendEmailBuy = sendEmailToUser(email, product);
-    const sendEmailSeller = sendInternEmail(product);
-    await Promise.all([sendEmailBuy, sendEmailSeller]);
+    await sendEmailToUser(email, product);
+    await sendInternEmail(product);
     return { closed: true };
   }
 };
