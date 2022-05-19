@@ -1,5 +1,5 @@
-import { User } from "lib/models/user";
-import { Auth } from "lib/models/auth";
+import { User } from "models/user";
+import { Auth } from "models/auth";
 import gen from "random-seed";
 import addMinutes from "date-fns/addMinutes";
 var seed = "breakingBad";

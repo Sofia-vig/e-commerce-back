@@ -3,7 +3,7 @@
 
 import methods from "micro-method-router";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { Auth } from "lib/models/auth";
+import { Auth } from "models/auth";
 import { generate } from "lib/jwt";
 
 export default methods({

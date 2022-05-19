@@ -5,7 +5,7 @@
 
 import methods from "micro-method-router";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { Order } from "lib/models/order";
+import { Order } from "models/order";
 import { authMiddleware } from "lib/middlewares";
 import { createPreference } from "lib/mercadopago";
 

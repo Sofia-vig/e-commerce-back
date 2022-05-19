@@ -4,7 +4,7 @@
 import methods from "micro-method-router";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getMerchantOrder } from "lib/mercadopago";
-import { Order } from "lib/models/order";
+import { Order } from "models/order";
 
 export default methods({
   post: async (req: NextApiRequest, res: NextApiResponse) => {
