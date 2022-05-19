@@ -6,7 +6,6 @@ import { authMiddleware } from "lib/middlewares";
 export default methods({
   get: authMiddleware(
     async (req: NextApiRequest, res: NextApiResponse, token) => {
-      // Devuelve info del user asociado a ese token
       const user = new User(token.userId);
       await user.pull();
       res.send(user.data);

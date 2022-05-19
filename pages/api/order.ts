@@ -1,8 +1,3 @@
-/*POST /order?productId={id}
-    Genera una compra en nuestra base de datos y además genera una orden de pago en MercadoPago. 
-    Devuelve una URL de MercadoPago a donde vamos a redigirigir al user para que pague y el orderId.
-    res.status(200).send({ order: "post" });*/
-
 import methods from "micro-method-router";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Order } from "models/order";
@@ -56,10 +51,6 @@ export default methods({
     }
   ),
   get: async (req: NextApiRequest, res: NextApiResponse) => {
-    /*
-    GET /order/{orderId}
-    Devuelve una orden con toda la data incluyendo el estado de la orden.
-    */
     res.status(200).send({ order: "post" });
   },
 });

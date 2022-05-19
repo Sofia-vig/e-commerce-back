@@ -1,6 +1,3 @@
-// Recibe un email y un código y valida que sean los correctos.
-// En el caso de que sean correctos devuelve un token.
-
 import methods from "micro-method-router";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Auth } from "models/auth";

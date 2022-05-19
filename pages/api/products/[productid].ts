@@ -1,8 +1,3 @@
-/**
- * GET /products/{id}
-Obtiene toda data de un producto.
- */
-
 import methods from "micro-method-router";
 import type { NextApiRequest, NextApiResponse } from "next";
 

@@ -1,5 +1,3 @@
-// Devuelve todas mis ordenes con sus status.
-
 import methods from "micro-method-router";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { User } from "models/user";
