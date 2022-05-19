@@ -1,9 +1,8 @@
 import { Order } from "models/order";
 import { getMerchantOrder, createPreference } from "lib/mercadopago";
 import { getProductById } from "models/product";
-import { sendEmailToUser, sendInternEmail } from "lib/email";
+import { sendEmailToUserOnce, sendInternEmailOnce } from "lib/email";
 import { User } from "models/user";
-import once from "lodash/once";
 
 /**
  * @param userId string
@@ -30,8 +29,8 @@ export const closeOrder = async (topic, id): Promise<any> => {
     const orderId = order.external_reference;
     await Order.close(order, orderId);
     const { product, email } = await getDataForEmail(orderId);
-    await once(sendEmailToUser(email, product));
-    await once(sendInternEmail(product));
+    await sendEmailToUserOnce(email, product);
+    await sendInternEmailOnce(product);
     return { closed: true };
   }
 };

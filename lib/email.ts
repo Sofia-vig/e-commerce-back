@@ -1,14 +1,12 @@
 import * as qs from "qs";
+import once from "lodash/once";
 
 /**
  * @param toEmail string
  * @param product
  * @returns Promise<any>
  */
-export const sendEmailToUser = async (
-  toEmail: string,
-  product
-): Promise<any> => {
+const sendEmailToUser = async (toEmail: string, product): Promise<any> => {
   const params = qs.stringify(
     {
       apiKey: process.env.ELASTIC_EMAIL_APIKEY,
@@ -29,12 +27,13 @@ export const sendEmailToUser = async (
   const url = "https://api.elasticemail.com/v2/email/send" + params;
   return fetch(url);
 };
+export const sendEmailToUserOnce = once(sendEmailToUser);
 
 /**
  * @param product
  * @returns Promise<any>
  */
-export const sendInternEmail = async (product): Promise<any> => {
+const sendInternEmail = async (product): Promise<any> => {
   const params = qs.stringify(
     {
       apiKey: process.env.ELASTIC_EMAIL_APIKEY,
@@ -52,6 +51,7 @@ export const sendInternEmail = async (product): Promise<any> => {
   const url = "https://api.elasticemail.com/v2/email/send" + params;
   return fetch(url);
 };
+export const sendInternEmailOnce = once(sendInternEmail);
 
 /**
  * @param email string
