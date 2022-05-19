@@ -1,12 +1,12 @@
 import methods from "micro-method-router";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getOffsetAndLimit } from "lib/requests";
-import { getByQuery } from "models/product";
+import { getProductsByQuery } from "models/product";
 
 export default methods({
   get: async (req: NextApiRequest, res: NextApiResponse) => {
     const { limit, offset } = getOffsetAndLimit(req);
-    const records = await getByQuery(limit, offset, req.query.q);
+    const records = await getProductsByQuery(limit, offset, req.query.q);
     res.send({
       results: records.hits,
       pagination: {

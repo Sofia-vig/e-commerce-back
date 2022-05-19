@@ -3,13 +3,13 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { Order } from "models/order";
 import { authMiddleware } from "lib/middlewares";
 import { createPreference } from "lib/mercadopago";
-import { getById } from "models/product";
+import { getProductById } from "models/product";
 
 export default methods({
   post: authMiddleware(
     async (req: NextApiRequest, res: NextApiResponse, token) => {
       const { productId } = req.query as any;
-      const product = await getById(productId);
+      const product = await getProductById(productId);
       if (product) {
         const order = await Order.createNewOrder({
           aditionalInfo: req.body,
@@ -43,10 +43,4 @@ export default methods({
       }
     }
   ),
-  get: async (req: NextApiRequest, res: NextApiResponse) => {
-    const order = new Order(req.query.orderId);
-    await order.pull();
-    const orderData = order.get();
-    res.status(200).send({ orderData });
-  },
 });
