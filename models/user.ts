@@ -16,16 +16,29 @@ export class User {
   async push() {
     this.ref.update(this.data);
   }
-  static async createNewUser(data) {
+  /**
+   * @param data
+   * @description
+   * @returns Promise<User>
+   */
+  static async createNewUser(data): Promise<User> {
     const newUserSnap = await collection.add(data);
     const newUser = new User(newUserSnap.id);
     newUser.data = data;
     return newUser;
   }
-  async update(data) {
+  /**
+   * @param data
+   * @returns Promise<any>
+   */
+  async update(data): Promise<any> {
     return collection.doc(this.id).update(data);
   }
-  updateAddress(address) {
+  /**
+   * @param address string
+   * @description
+   */
+  updateAddress(address: string) {
     this.data.address = address;
   }
 }

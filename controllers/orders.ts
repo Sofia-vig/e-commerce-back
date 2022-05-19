@@ -2,14 +2,25 @@ import { Order } from "models/order";
 import { getMerchantOrder, createPreference } from "lib/mercadopago";
 import { getProductById } from "models/product";
 
-export const getOrderByUserId = async (userId) => {
+/**
+ * @param userId string
+ * @description
+ * @returns Promise<any[]>
+ */
+export const getOrderByUserId = async (userId: string): Promise<any[]> => {
   const snap = await Order.getByUserId(userId);
   return snap.docs.map((d) => {
     return { status: d.data().status, aditionalInfo: d.data().aditionalInfo };
   });
 };
 
-export const closeOrder = async (topic, id) => {
+/**
+ * @param topic
+ * @param id
+ * @description
+ * @returns Promise<any>
+ */
+export const closeOrder = async (topic, id): Promise<any> => {
   if (topic != "merchant_order") return "order not closed";
   const order = await getMerchantOrder(id);
   if (order.order_status == "paid") {
@@ -21,11 +32,18 @@ export const closeOrder = async (topic, id) => {
   }
 };
 
+/**
+ * @param productId string
+ * @param orderInfo
+ * @param userId string
+ * @description
+ * @returns Promise<any>
+ */
 export const createOrderAndPreferences = async (
   productId,
   orderInfo,
   userId
-) => {
+): Promise<any> => {
   const product = await getProductById(productId);
   if (!product) return "El producto no existe";
   const order = await Order.createNewOrder({

@@ -6,7 +6,12 @@ import addMinutes from "date-fns/addMinutes";
 var seed = "breakingBad";
 var random = gen.create(seed);
 
-export const findOrCreateAuth = async (email: string) => {
+/**
+ * @param email string
+ * @description
+ * @returns Promise<Auth>
+ */
+export const findOrCreateAuth = async (email: string): Promise<Auth> => {
   const cleanEmail = email.trim().toLowerCase();
   const auth = await Auth.findByEmail(cleanEmail);
   if (auth) return auth;
@@ -23,6 +28,11 @@ export const findOrCreateAuth = async (email: string) => {
   return newAuth;
 };
 
+/**
+ * @param email string
+ * @description
+ * @returns boolean
+ */
 export const sendCode = async (email: string) => {
   const auth = await findOrCreateAuth(email);
   const code = random.intBetween(10000, 99999);
@@ -35,7 +45,13 @@ export const sendCode = async (email: string) => {
   return true;
 };
 
-export const getToken = async (email, code) => {
+/**
+ * @param email string
+ * @param code number
+ * @description
+ * @returns token:string
+ */
+export const getToken = async (email: string, code: number) => {
   const auth = await Auth.findByEmailAndCode(email, code);
   if (!auth) return "email or code incorrect";
   const expired = auth.isCodeExpired();

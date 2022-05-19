@@ -17,6 +17,11 @@ export class Auth {
   async push() {
     this.ref.update(this.data);
   }
+  /**
+   * @param email
+   * @description
+   * @returns Promise<Auth>
+   */
   static async findByEmail(email: string): Promise<Auth> {
     const results = await collection.where("email", "==", email).get();
     if (!results.docs.length) return null;
@@ -24,7 +29,12 @@ export class Auth {
     newAuth.data = results.docs[0].data();
     return newAuth;
   }
-  static async createNewAuth(data) {
+  /**
+   * @param data
+   * @description
+   * @returns Promise<Auth>
+   */
+  static async createNewAuth(data): Promise<Auth> {
     const newAuthSnap = await collection.add(data);
     const newAuth = new Auth(newAuthSnap.id);
     newAuth.data = data;
@@ -36,7 +46,13 @@ export class Auth {
   isCodeExpired() {
     return isAfter(new Date(), this.data.expires.toDate());
   }
-  static async findByEmailAndCode(email: string, code: number) {
+  /**
+   * @param email
+   * @param code
+   * @description
+   * @returns Promise<Auth>
+   */
+  static async findByEmailAndCode(email: string, code: number): Promise<Auth> {
     const cleanEmail = Auth.cleanEmail(email);
     const result = await collection
       .where("email", "==", cleanEmail)

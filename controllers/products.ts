@@ -1,6 +1,9 @@
 import { base } from "lib/airtable";
 import { productsIndex } from "lib/algolia";
 
+/**
+ * @description
+ */
 export const syncAirtableWithAlgolia = async () => {
   base("Funkos")
     .select({

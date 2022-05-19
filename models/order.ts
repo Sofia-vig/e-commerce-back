@@ -16,20 +16,35 @@ export class Order {
   async push() {
     this.ref.update(this.data);
   }
-  static async createNewOrder(newOrderData = {}) {
+  /**
+   * @param newOrderData
+   * @description
+   * @returns Promise<Order>
+   */
+  static async createNewOrder(newOrderData = {}): Promise<Order> {
     const newOrderSnap = await collection.add(newOrderData);
     const newOrder = new Order(newOrderSnap.id);
     newOrder.data = newOrderData;
     return newOrder;
   }
-  static async close(order, id) {
-    await collection.doc(id).update({
+  /**
+   * @param order
+   * @param id
+   * @description
+   * @returns Promise<any>
+   */
+  static async close(order, id): Promise<any> {
+    return collection.doc(id).update({
       status: "closed",
       externalOrder: order,
       editedAt: new Date(),
     });
   }
-  static async getByUserId(userId: string) {
+  /**
+   * @param userId
+   * @returns Promise<any>
+   */
+  static async getByUserId(userId: string): Promise<any> {
     return collection.where("userId", "==", userId).get();
   }
   get() {
