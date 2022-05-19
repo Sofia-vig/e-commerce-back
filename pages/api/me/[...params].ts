@@ -1,13 +1,14 @@
 import methods from "micro-method-router";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { authMiddleware } from "lib/middlewares";
-import { updateUserAddress } from "controllers/users";
 import { getOrderByUserId } from "controllers/orders";
+import { User } from "models/user";
 
 const patchByAction = {
   address: authMiddleware(
     async (req: NextApiRequest, res: NextApiResponse, token) => {
-      await updateUserAddress(token.userId, req.body.address);
+      const user = new User(token.userId);
+      await user.update({ address: req.body.address });
       res.send({ updateAddress: true });
     }
   ),

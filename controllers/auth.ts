@@ -8,7 +8,7 @@ var random = gen.create(seed);
 
 /**
  * @param email string
- * @description
+ * @description If Auth exist return auth if not create a new user and  new auth
  * @returns Promise<Auth>
  */
 export const findOrCreateAuth = async (email: string): Promise<Auth> => {
@@ -30,8 +30,8 @@ export const findOrCreateAuth = async (email: string): Promise<Auth> => {
 
 /**
  * @param email string
- * @description
- * @returns boolean
+ * @description Generate a code with property expires en send a email with the code
+ * @returns true
  */
 export const sendCode = async (email: string) => {
   const auth = await findOrCreateAuth(email);
@@ -48,7 +48,7 @@ export const sendCode = async (email: string) => {
 /**
  * @param email string
  * @param code number
- * @description
+ * @description If code is not expired, and the email and code are the same return a token
  * @returns token:string
  */
 export const getToken = async (email: string, code: number) => {

@@ -1,8 +1,9 @@
 import { base } from "lib/airtable";
 import { productsIndex } from "lib/algolia";
 
+//TODO usar cronjob
 /**
- * @description
+ * @description Sync products from Airtable with Algolia every 30 minutes
  */
 export const syncAirtableWithAlgolia = async () => {
   base("Funkos")

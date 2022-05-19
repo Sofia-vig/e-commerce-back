@@ -4,7 +4,7 @@ import type { NextApiRequest } from "next";
  * @param req NextApiRequest
  * @param maxLimit number
  * @param maxOffset number
- * @description
+ * @description Format limit and offset for query search in Algolia
  * @returns Object<{limit,offset}>
  */
 export const getOffsetAndLimit = (

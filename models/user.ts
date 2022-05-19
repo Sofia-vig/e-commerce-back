@@ -18,7 +18,7 @@ export class User {
   }
   /**
    * @param data
-   * @description
+   * @description Create new user and return the user data
    * @returns Promise<User>
    */
   static async createNewUser(data): Promise<User> {
@@ -29,16 +29,10 @@ export class User {
   }
   /**
    * @param data
+   * @description Update user data
    * @returns Promise<any>
    */
   async update(data): Promise<any> {
     return collection.doc(this.id).update(data);
-  }
-  /**
-   * @param address string
-   * @description
-   */
-  updateAddress(address: string) {
-    this.data.address = address;
   }
 }

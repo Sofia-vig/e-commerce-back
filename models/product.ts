@@ -4,7 +4,7 @@ import { productsIndex } from "lib/algolia";
  * @param limit number
  * @param offset number
  * @param query string
- * @description
+ * @description Get Products from Algolia by Query with Limit and Offset
  * @returns Promise<Object>
  */
 export async function getProductsByQuery(
@@ -29,7 +29,7 @@ export async function getProductsByQuery(
 
 /**
  * @param id string
- * @description
+ * @description If product exist returns a product by id otherwise returns null
  * @returns Promise<any>
  */
 export async function getProductById(id: string): Promise<any> {
@@ -42,7 +42,7 @@ export async function getProductById(id: string): Promise<any> {
 }
 
 /**
- * @description
+ * @description Returns all products from Algolia
  * @returns Promise<any>
  */
 export async function getAllProducts(): Promise<any> {

@@ -4,7 +4,7 @@ import { getProductById } from "models/product";
 
 /**
  * @param userId string
- * @description
+ * @description Get orders by user id with formatted data
  * @returns Promise<any[]>
  */
 export const getOrderByUserId = async (userId: string): Promise<any[]> => {
@@ -17,7 +17,7 @@ export const getOrderByUserId = async (userId: string): Promise<any[]> => {
 /**
  * @param topic
  * @param id
- * @description
+ * @description Close an order if order_status is "paid"
  * @returns Promise<any>
  */
 export const closeOrder = async (topic, id): Promise<any> => {
@@ -36,7 +36,7 @@ export const closeOrder = async (topic, id): Promise<any> => {
  * @param productId string
  * @param orderInfo
  * @param userId string
- * @description
+ * @description Create an order with data and a Preference for Mercado Pago. Return url for payment
  * @returns Promise<any>
  */
 export const createOrderAndPreferences = async (

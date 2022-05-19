@@ -18,7 +18,7 @@ export class Order {
   }
   /**
    * @param newOrderData
-   * @description
+   * @description Create new Order with newOrderData
    * @returns Promise<Order>
    */
   static async createNewOrder(newOrderData = {}): Promise<Order> {
@@ -30,7 +30,7 @@ export class Order {
   /**
    * @param order
    * @param id
-   * @description
+   * @description Update order with status, externalOrder and date
    * @returns Promise<any>
    */
   static async close(order, id): Promise<any> {

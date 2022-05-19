@@ -19,7 +19,7 @@ export class Auth {
   }
   /**
    * @param email
-   * @description
+   * @description Find a user in Auth with the same email and return Auth data
    * @returns Promise<Auth>
    */
   static async findByEmail(email: string): Promise<Auth> {
@@ -31,7 +31,7 @@ export class Auth {
   }
   /**
    * @param data
-   * @description
+   * @description Create new Auth
    * @returns Promise<Auth>
    */
   static async createNewAuth(data): Promise<Auth> {
@@ -49,7 +49,7 @@ export class Auth {
   /**
    * @param email
    * @param code
-   * @description
+   * @description Find a user in Auth with the same email & code, and return Auth data
    * @returns Promise<Auth>
    */
   static async findByEmailAndCode(email: string, code: number): Promise<Auth> {
