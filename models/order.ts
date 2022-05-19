@@ -29,12 +29,8 @@ export class Order {
       editedAt: new Date(),
     });
   }
-  static async getOrdersByUserId(userId: string) {
-    const snap = await collection.where("userId", "==", userId).get();
-    return snap.docs.map((d) => {
-      const { status, aditionalInfo } = d.data();
-      return { status, aditionalInfo };
-    });
+  static async getByUserId(userId: string) {
+    return collection.where("userId", "==", userId).get();
   }
   get() {
     return this.data;

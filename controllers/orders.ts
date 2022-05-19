@@ -2,6 +2,13 @@ import { Order } from "models/order";
 import { getMerchantOrder, createPreference } from "lib/mercadopago";
 import { getProductById } from "models/product";
 
+export const getOrderByUserId = async (userId) => {
+  const snap = await Order.getByUserId(userId);
+  return snap.docs.map((d) => {
+    return { status: d.data().status, aditionalInfo: d.data().aditionalInfo };
+  });
+};
+
 export const closeOrder = async (topic, id) => {
   if (topic != "merchant_order") return "order not closed";
   const order = await getMerchantOrder(id);
