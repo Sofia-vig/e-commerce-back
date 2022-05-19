@@ -27,7 +27,7 @@ export default methods({
               category_id: "car_electronics",
               quantity: 1,
               currency_id: "ARS",
-              unit_price: product.cost,
+              unit_price: product.price,
             },
           ],
           back_urls: {
