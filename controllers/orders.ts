@@ -1,7 +1,7 @@
 import { Order } from "models/order";
 import { getMerchantOrder, createPreference } from "lib/mercadopago";
 import { getProductById } from "models/product";
-import { sendEmailToUser } from "lib/email";
+import { sendEmailToUser, sendInternEmail } from "lib/email";
 import { User } from "models/user";
 
 /**
@@ -19,7 +19,7 @@ export const getOrderByUserId = async (userId: string): Promise<any[]> => {
 /**
  * @param topic
  * @param id
- * @description Close an order if order_status is "paid"
+ * @description Close an order if order_status is "paid" and send an email
  * @returns Promise<any>
  */
 export const closeOrder = async (topic, id): Promise<any> => {
@@ -28,15 +28,10 @@ export const closeOrder = async (topic, id): Promise<any> => {
   if (order.order_status == "paid") {
     const orderId = order.external_reference;
     await Order.close(order, orderId);
-    const orderInstance = new Order(orderId);
-    await orderInstance.pull();
-    console.log({ orderInstance });
-    console.log(orderInstance.data);
-
-    const user = new User(orderInstance.data.userId);
-    await user.pull();
-    const product = await getProductById(orderInstance.data.productId);
-    await sendEmailToUser(user.data.email, product);
+    const { product, email } = await getDataForEmail(orderId);
+    const sendEmailBuy = sendEmailToUser(email, product);
+    const sendEmailSeller = sendInternEmail(product);
+    await Promise.all([sendEmailBuy, sendEmailSeller]);
     return { closed: true };
   }
 };
@@ -82,4 +77,13 @@ export const createOrderAndPreferences = async (
       "https://e-commerce-back-omega.vercel.app/api/ipn/mercadopago",
   });
   return { url: pref.init_point };
+};
+
+export const getDataForEmail = async (orderId) => {
+  const orderInstance = new Order(orderId);
+  await orderInstance.pull();
+  const user = new User(orderInstance.data.userId);
+  await user.pull();
+  const product = await getProductById(orderInstance.data.productId);
+  return { email: user.data.email, product };
 };

@@ -2,6 +2,7 @@ import { User } from "models/user";
 import { Auth } from "models/auth";
 import { generate } from "lib/jwt";
 import { generateCodeWithExpires } from "lib/utils";
+import { sendCodeEmail } from "lib/email";
 
 /**
  * @param email string
@@ -36,7 +37,7 @@ export const sendCode = async (email: string) => {
   auth.data.code = code;
   auth.data.expires = expires;
   await auth.push();
-  console.log("email enviado a " + email + " con codigo: " + code);
+  await sendCodeEmail(email, code);
   return true;
 };
 
