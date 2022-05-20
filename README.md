@@ -1,1 +1,1 @@
-TODO : yup
+TODO : yup y tipar

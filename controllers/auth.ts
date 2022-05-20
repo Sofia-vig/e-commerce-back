@@ -31,7 +31,7 @@ export const findOrCreateAuth = async (email: string): Promise<Auth> => {
  * @description Generate a code with property expires en send a email with the code
  * @returns true
  */
-export const sendCode = async (email: string) => {
+export const sendCode = async (email: string): Promise<any> => {
   const auth = await findOrCreateAuth(email);
   const { code, expires } = generateCodeWithExpires();
   auth.data.code = code;
@@ -47,7 +47,10 @@ export const sendCode = async (email: string) => {
  * @description If code is not expired, and the email and code are the same, return a token
  * @returns token:string
  */
-export const getToken = async (email: string, code: number) => {
+export const getToken = async (
+  email: string,
+  code: number
+): Promise<string | { token: string }> => {
   const auth = await Auth.findByEmailAndCode(email, code);
   if (!auth) return "email or code incorrect";
   const expired = auth.isCodeExpired();

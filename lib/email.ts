@@ -4,6 +4,7 @@ import once from "lodash/once";
 /**
  * @param toEmail string
  * @param product
+ * @description Send an email to buyer
  * @returns Promise<any>
  */
 const sendEmailToUser = async (toEmail: string, product): Promise<any> => {
@@ -31,6 +32,7 @@ export const sendEmailToUserOnce = once(sendEmailToUser);
 
 /**
  * @param product
+ * @description Send an email to seller
  * @returns Promise<any>
  */
 const sendInternEmail = async (product): Promise<any> => {
@@ -56,6 +58,7 @@ export const sendInternEmailOnce = once(sendInternEmail);
 /**
  * @param email string
  * @param code number
+ * @description Send email with a code to user
  * @returns Promise<any>
  */
 export const sendCodeEmail = async (

@@ -54,8 +54,8 @@ export async function getAllProducts(): Promise<any> {
 /**
  * @description Sync products from Airtable with Algolia every 30 minutes
  */
-export const syncAirtableWithAlgolia = async () => {
-  base("Funkos")
+export const syncAirtableWithAlgolia = async (): Promise<any> => {
+  return base("Funkos")
     .select({
       pageSize: 10,
     })

@@ -22,7 +22,10 @@ export const getOrderByUserId = async (userId: string): Promise<any[]> => {
  * @description Close an order if order_status is "paid" and send an email
  * @returns Promise<any>
  */
-export const closeOrder = async (topic, id): Promise<any> => {
+export const closeOrder = async (
+  topic,
+  id
+): Promise<{ closed: boolean } | string> => {
   if (topic != "merchant_order") return "order not closed";
   const order = await getMerchantOrder(id);
   if (order.order_status == "paid") {
@@ -46,7 +49,7 @@ export const createOrderAndPreferences = async (
   productId: string,
   orderInfo,
   userId: string
-): Promise<any> => {
+): Promise<{ url: string } | string> => {
   const product = await getProductById(productId);
   if (!product) return "El producto no existe";
   const order = await Order.createNewOrder({
@@ -63,7 +66,7 @@ export const createOrderAndPreferences = async (
         description: product.description,
         picture_url: product.image.url,
         category_id: product.category,
-        quantity: 1,
+        quantity: orderInfo.quantity || 1,
         currency_id: "ARS",
         unit_price: product.price,
       },
@@ -78,7 +81,9 @@ export const createOrderAndPreferences = async (
   return { url: pref.init_point };
 };
 
-export const getDataForEmail = async (orderId) => {
+export const getDataForEmail = async (
+  orderId
+): Promise<{ email: string; product: any }> => {
   const orderInstance = new Order(orderId);
   await orderInstance.pull();
   const user = new User(orderInstance.data.userId);

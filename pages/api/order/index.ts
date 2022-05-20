@@ -2,6 +2,7 @@ import methods from "micro-method-router";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { authMiddleware } from "lib/middlewares";
 import { createOrderAndPreferences } from "controllers/orders";
+import * as yup from "yup";
 
 export default methods({
   post: authMiddleware(
