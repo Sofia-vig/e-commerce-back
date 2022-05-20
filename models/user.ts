@@ -1,6 +1,13 @@
 import { firestore } from "lib/firestore";
 const collection = firestore.collection("users");
 
+class UserData {
+  fullname?: string;
+  address?: string;
+  email?: string;
+  createdAt?: Date;
+}
+
 export class User {
   id: string;
   ref: FirebaseFirestore.DocumentReference;
@@ -21,7 +28,7 @@ export class User {
    * @description Create new user and return the user data
    * @returns Promise<User>
    */
-  static async createNewUser(data): Promise<User> {
+  static async createNewUser(data: UserData): Promise<User> {
     const newUserSnap = await collection.add(data);
     const newUser = new User(newUserSnap.id);
     newUser.data = data;

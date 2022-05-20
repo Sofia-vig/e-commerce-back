@@ -20,7 +20,7 @@ export const findOrCreateAuth = async (email: string): Promise<Auth> => {
   const newAuth = await Auth.createNewAuth({
     email: cleanEmail,
     userId: newUser.id,
-    code: "",
+    code: 0,
     expires: new Date(),
   });
   return newAuth;
