@@ -49,9 +49,9 @@ export const createOrderAndPreferences = async (
   productId: string,
   orderInfo,
   userId: string
-): Promise<{ url: string } | string> => {
+): Promise<{ url: string }> => {
   const product = await getProductById(productId);
-  if (!product) return "El producto no existe";
+  if (!product) throw "El producto no existe";
   const order = await Order.createNewOrder({
     aditionalInfo: orderInfo,
     productId,

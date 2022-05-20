@@ -50,10 +50,10 @@ export const sendCode = async (email: string): Promise<any> => {
 export const getToken = async (
   email: string,
   code: number
-): Promise<string | { token: string }> => {
+): Promise<{ token: string }> => {
   const auth = await Auth.findByEmailAndCode(email, code);
-  if (!auth) return "email or code incorrect";
+  if (!auth) throw "email or code incorrect";
   const expired = auth.isCodeExpired();
-  if (expired) return "code expired";
+  if (expired) throw "code expired";
   return { token: generate({ userId: auth.data.userId }) };
 };

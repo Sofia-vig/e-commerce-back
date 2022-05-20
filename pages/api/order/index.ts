@@ -8,12 +8,16 @@ export default methods({
   post: authMiddleware(
     async (req: NextApiRequest, res: NextApiResponse, token) => {
       const { productId } = req.query as any;
-      const response = await createOrderAndPreferences(
-        productId,
-        req.body,
-        token.userId
-      );
-      res.send(response);
+      try {
+        const { url } = await createOrderAndPreferences(
+          productId,
+          req.body,
+          token.userId
+        );
+        res.status(200).send({ url });
+      } catch (error) {
+        res.status(400).send({ error });
+      }
     }
   ),
 });

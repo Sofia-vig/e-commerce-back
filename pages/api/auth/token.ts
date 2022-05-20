@@ -4,7 +4,11 @@ import { getToken } from "controllers/auth";
 
 export default methods({
   post: async (req: NextApiRequest, res: NextApiResponse) => {
-    const response = await getToken(req.body.email, req.body.code);
-    res.send(response);
+    try {
+      const { token } = await getToken(req.body.email, req.body.code);
+      res.status(200).send({ token });
+    } catch (error) {
+      res.status(400).send({ error });
+    }
   },
 });
