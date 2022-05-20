@@ -52,8 +52,9 @@ export const createOrderAndPreferences = async (
 ): Promise<{ url: string }> => {
   const product = await getProductById(productId);
   if (!product) throw "El producto no existe";
+  const quantity = orderInfo.quantity || 1;
   const order = await Order.createNewOrder({
-    aditionalInfo: orderInfo,
+    aditionalInfo: { ...orderInfo, quantity },
     productId,
     userId: userId,
     status: "pending",
@@ -66,7 +67,7 @@ export const createOrderAndPreferences = async (
         description: product.description,
         picture_url: product.image.url,
         category_id: product.category,
-        quantity: orderInfo.quantity || 1,
+        quantity,
         currency_id: "ARS",
         unit_price: product.price,
       },

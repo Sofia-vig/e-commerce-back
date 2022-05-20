@@ -8,6 +8,7 @@ export default methods({
     const order = new Order(req.query.orderId);
     await order.pull();
     const orderData = order.get();
-    res.status(200).send({ orderData });
+    orderData && res.status(200).send({ orderData });
+    !orderData && res.status(400).send({ error: "Order not found" });
   }),
 });
