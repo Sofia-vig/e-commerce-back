@@ -4,7 +4,7 @@ import { syncAirtableWithAlgolia } from "models/product";
 
 export default methods({
   get: async (req: NextApiRequest, res: NextApiResponse) => {
-    const response = await syncAirtableWithAlgolia();
-    res.send(response);
+    await syncAirtableWithAlgolia();
+    res.send({ sync: true });
   },
 });
