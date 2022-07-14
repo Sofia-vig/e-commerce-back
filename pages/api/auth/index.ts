@@ -1,21 +1,18 @@
 import methods from "micro-method-router";
 import type { NextApiRequest, NextApiResponse } from "next";
+import { bodySchemaMiddleware } from "lib/middlewares";
 import { sendCode } from "controllers/auth";
 import * as yup from "yup";
 
-let bodyPatchSchema = yup.object().shape({
+let bodySchema = yup.object().shape({
   email: yup.string().required(),
 });
 
-export default methods({
-  post: async (req: NextApiRequest, res: NextApiResponse) => {
-    try {
-      await bodyPatchSchema.validate(req.body);
-    } catch (error) {
-      res.status(400).send({ field: "body", error });
-    }
+async function postHandler(req: NextApiRequest, res: NextApiResponse) {
+  const result = await sendCode(req.body.email);
+  res.send({ result });
+}
 
-    const result = await sendCode(req.body.email);
-    res.send({ result });
-  },
+export default methods({
+  post: bodySchemaMiddleware(bodySchema, postHandler),
 });

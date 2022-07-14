@@ -1,27 +1,22 @@
 import methods from "micro-method-router";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { authMiddleware } from "lib/middlewares";
+import { authMiddleware, bodySchemaMiddleware } from "lib/middlewares";
 import { getOrderByUserId } from "controllers/orders";
 import { User } from "models/user";
 import * as yup from "yup";
 
-let bodyPatchSchema = yup.object().shape({
+let bodySchema = yup.object().shape({
   address: yup.string().required(),
 });
 
 const patchByAction = {
-  address: authMiddleware(
-    async (req: NextApiRequest, res: NextApiResponse, token) => {
-      try {
-        await bodyPatchSchema.validate(req.body);
-      } catch (error) {
-        res.status(400).send({ field: "body", error });
-      }
-
+  address: bodySchemaMiddleware(
+    bodySchema,
+    authMiddleware(async (req: NextApiRequest, res: NextApiResponse, token) => {
       const user = new User(token.userId);
       await user.update({ address: req.body.address });
       res.send({ updateAddress: true });
-    }
+    })
   ),
 };
 

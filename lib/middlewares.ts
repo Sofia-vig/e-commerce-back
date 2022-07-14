@@ -14,3 +14,25 @@ export const authMiddleware = (callback) => {
     }
   };
 };
+
+export const querySchemaMiddleware = (querySchema, handler) => {
+  return async function (req: NextApiRequest, res: NextApiResponse) {
+    try {
+      await querySchema.validate(req.query);
+      handler(req, res);
+    } catch (error) {
+      res.status(400).send({ field: "query", error });
+    }
+  };
+};
+
+export const bodySchemaMiddleware = (bodySchema, handler) => {
+  return async function (req: NextApiRequest, res: NextApiResponse) {
+    try {
+      await bodySchema.validate(req.body);
+      handler(req, res);
+    } catch (error) {
+      res.status(400).send({ field: "body", error });
+    }
+  };
+};
