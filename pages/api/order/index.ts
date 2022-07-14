@@ -19,12 +19,12 @@ export default methods({
 
       const { productId } = req.query as any;
       try {
-        const { url } = await createOrderAndPreferences(
+        const { url, orderId } = await createOrderAndPreferences(
           productId,
           req.body,
           token.userId
         );
-        res.status(200).send({ url });
+        res.status(200).send({ url, orderId });
       } catch (error) {
         res.status(400).send({ error });
       }

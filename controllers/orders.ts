@@ -49,7 +49,7 @@ export const createOrderAndPreferences = async (
   productId: string,
   orderInfo,
   userId: string
-): Promise<{ url: string }> => {
+): Promise<{ url: string; orderId: string }> => {
   const product = await getProductById(productId);
   if (!product) throw "El producto no existe";
   const quantity = orderInfo.quantity || 1;
@@ -79,7 +79,7 @@ export const createOrderAndPreferences = async (
     notification_url:
       "https://e-commerce-back-omega.vercel.app/api/ipn/mercadopago",
   });
-  return { url: pref.init_point };
+  return { url: pref.init_point, orderId: order.id };
 };
 
 export const getDataForEmail = async (
