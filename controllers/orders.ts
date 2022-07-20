@@ -77,7 +77,7 @@ export const createOrderAndPreferences = async (
     },
     external_reference: order.id,
     notification_url:
-      "https://e-commerce-back-omega.vercel.app/api/ipn/mercadopago",
+      "https://e-commerce-nine-red.vercel.app/thanks/" + productId,
   });
   return { url: pref.init_point, orderId: order.id };
 };
