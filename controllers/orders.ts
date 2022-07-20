@@ -73,11 +73,11 @@ export const createOrderAndPreferences = async (
       },
     ],
     back_urls: {
-      success: "https://apx.school",
+      success: "https://e-commerce-nine-red.vercel.app/thanks/" + productId,
     },
     external_reference: order.id,
     notification_url:
-      "https://e-commerce-nine-red.vercel.app/thanks/" + productId,
+      "https://e-commerce-back-omega.vercel.app/api/ipn/mercadopago",
   });
   return { url: pref.init_point, orderId: order.id };
 };
